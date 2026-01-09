@@ -1,0 +1,105 @@
+\documentclass[spanish]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{shadows.blur, fadings, calc, shapes.geometric, decorations.pathmorphing, mindmap, positioning}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\usepackage{bookmark}
+\usepackage{multicol}
+\usepackage{animate}
+\usepackage{media9}
+
+%DRAW FRUIT FOR ORGANIC CHEMISTRY
+\newcommand{\faIconFruit}[1][1]{\begin{tikzpicture}[scale=#1]
+    % Define banana colors
+    \definecolor{bananayellow}{HTML}{FFE135}  % Classic banana yellow
+    \definecolor{bananabrown}{HTML}{8B4513}   % Brown spots
+    \definecolor{bananastem}{HTML}{654321}    % Stem brown
+    \definecolor{bananatip}{HTML}{F5DEB3}     % Tip light color
+
+        
+    % Shadow under banana
+    \fill[black!20, xshift=-0.25cm, yshift= -0.05cm, opacity=0.4, blur shadow={shadow blur steps=10}]
+        (0.5,0) .. controls (1.5,0.1) and (2.5,0.2) .. (3,0.5)
+        .. controls (3.5,0.8) and (3.8,1.2) .. (3.5,1.5)
+        -- (3,1) -- (0.5,0) -- cycle;
+        
+    % === MAIN BANANA CURVE ===
+    % Elegant banana curve using Bézier
+    \fill[bananayellow] 
+        (0,0) .. controls (-0.5,0.3) and (-0.8,1) .. (-0.5,2.5)
+        .. controls (-0.2,4) and (0.3,5) .. (1,5.5)
+        .. controls (1.7,6) and (2.5,5.8) .. (3,5)
+        .. controls (3.5,4.2) and (3.8,3) .. (3.5,2)
+        .. controls (3.2,1) and (2.5,0.5) .. (1.5,0.2)
+        .. controls (0.5,-0.1) and (0.2,0) .. (0,0) -- cycle;
+    
+    % === BANANA TIP (FLOWER END) ===
+    \fill[bananatip] 
+        (3,5) .. controls (3.2,5.2) and (3.3,5.3) .. (3.4,5.2)
+        .. controls (3.5,5.1) and (3.4,4.9) .. (3.2,4.8)
+        .. controls (3,4.7) and (2.9,4.8) .. (3,5) -- cycle;
+    
+    % === RIDGES/LINES ===
+    % Characteristic banana ridges
+    \draw[bananayellow!80!black, line width=0.8pt, scale=0.9695, opacity=0.3]
+        (0.2,0.3) .. controls (0.4,1.5) and (0.6,2.8) .. (0.9,4)
+        .. controls (1.2,5.2) and (1.6,5.8) .. (2,5.5);
+    
+    \draw[bananayellow!80!black, line width=0.8pt, scale=0.9695, opacity=0.3]
+        (0.4,0.5) .. controls (0.6,1.8) and (0.8,3.2) .. (1.1,4.3)
+        .. controls (1.4,5.4) and (1.8,5.9) .. (2.2,5.6);
+    
+    \draw[bananayellow!80!black, line width=0.8pt, scale=0.9695, opacity=0.3]
+        (0.6,0.8) .. controls (0.8,2.2) and (1,3.6) .. (1.3,4.6)
+        .. controls (1.6,5.6) and (2,6) .. (2.4,5.7);
+    
+    % === HIGHLIGHTS FOR 3D EFFECT ===
+    % Main highlight (light from top-left)
+    \shade[left color=bananayellow!40!white, right color=transparent, scale=0.9695, opacity=0.5]
+        (0.2,0.5) .. controls (0.4,1.8) and (0.7,3.2) .. (1,4.5)
+        .. controls (1.3,5.8) and (1.8,6.2) .. (2.2,5.8)
+        -- (2.5,5.5) .. controls (2.1,6) and (1.6,6.2) .. (1.2,5.5)
+        .. controls (0.8,4.8) and (0.5,3.2) .. (0.3,1.5)
+        .. controls (0.1,-0.2) and (0.2,0.3) .. (0.2,0.5) -- cycle;
+    
+    % === REFLECTIONS ===
+    \fill[white, opacity=0.3]
+        (0.8,1.5) .. controls (1,2) and (1.2,2.5) .. (1.4,3)
+        .. controls (1.6,3.5) and (1.8,4) .. (2,4.2)
+        .. controls (2.2,4.4) and (2.4,4.3) .. (2.3,4)
+        .. controls (2.2,3.7) and (2,3.2) .. (1.8,2.7)
+        .. controls (1.6,2.2) and (1.4,1.7) .. (1.2,1.3)
+        .. controls (1,0.9) and (0.9,1.2) .. (0.8,1.5) -- cycle;
+
+    % === STEM ===
+    \fill[bananastem] 
+        (0,-0.1) .. controls (0.1,-0.3) and (0.3,-0.4) .. (0.5,-0.3)
+        .. controls (0.7,-0.2) and (0.6,0) .. (0.4,0.1)
+        .. controls (0.2,0.2) and (0,0.1) .. (0,-0.1) -- cycle;
+    
+    % === BANANA SPOTS (RIPENING) ===
+    % Random brown spots
+    \foreach \x/\y/\s in {
+        0.5/1.2/0.08, 0.8/2.5/0.06, 1.2/3.8/0.07, 
+        1.8/4.5/0.09, 2.3/3.5/0.05, 2.8/2.2/0.08,
+        0.3/2.8/0.04, 1.5/1.8/0.05, 2.1/2.8/0.06
+    } {
+        \fill[bananabrown, opacity=0.7] (\x,\y) circle (\s);
+        \fill[bananabrown!50, opacity=0.4] (\x,\y) circle (\s*0.6);
+    }
+    
+    % === BANANA "NECK" DETAIL ===
+    \draw[bananastem, line width=0.5pt]
+        (0.2,0.1) .. controls (0.3,0.2) and (0.4,0.25) .. (0.5,0.2);
+    
+\end{tikzpicture}}
+
+\begin{document}
+\thispagestyle{empty}
+
+\faIconFruit[3]
+
+\end{document}
