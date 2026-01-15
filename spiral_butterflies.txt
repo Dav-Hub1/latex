@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage[margin=0.5in]{geometry}
+
+\pagestyle{empty}
+
+\begin{document}
+
+% Define accent color
+\definecolor{accent}{HTML}{E74C3C} % Red - excitement/orgasm
+
+\begin{center}
+
+    \scalebox{1.5}{\begin{tikzpicture}[scale=2]
+        
+            % Flight paths
+            \foreach \i in {0,120,240} {
+                \draw[accent!30, line width=0.6pt, dashed, opacity=0.5]
+                    (\i:0.8) .. controls (\i+30:1.5) and (\i+60:1.8) .. (\i+90:2.2);
+            }
+            
+            % Define butterfly pic
+            \tikzset{
+                butterfly/.pic={
+                    \fill[accent!80!white, rotate=45] 
+                        (0.1,0) ellipse (0.3 and 0.15)
+                        (0,0.1) ellipse (0.15 and 0.3);
+                    \fill[black!70] (0,0.175) circle (0.04);
+                    \fill[black!70] (0,0) ellipse (0.0375 and 0.15);
+                    \draw[black!70, line width=0.3pt] 
+                        (0,0.215) -- (0.05,0.275) (0,0.215) -- (-0.05,0.275);
+                }
+            }
+            
+            % Butterfly swarm in spiral pattern
+            \foreach \i in {0,1,...,11} {
+                \pgfmathsetmacro{\angle}{\i * 30}
+                \pgfmathsetmacro{\distance}{1.0 + 0.1*\i}
+                \pgfmathsetmacro{\scale}{0.4 + 0.05*\i}
+                
+                \path (\angle:\distance) pic[scale=\scale, rotate=\angle] {butterfly};
+            }
+            
+        \end{tikzpicture}
+    }
+\end{center}
+
+\end{document}
